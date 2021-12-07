@@ -16,10 +16,19 @@ const supabaseKey =
 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNDc0NjI5NSwiZXhwIjoxOTUwMzIyMjk1fQ.uUoHk5B21XcyCpeJt_my-DunpgVaB0UVn3DqFXz7o1I";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// console.log(supabase);
 //SELECT TASKS
 app.get("/tasks", async (req, res) => {
-	let { projects, error } = await supabase.from("projects").select("*");
-	res.json(projects);
+	let { data, error } = await supabase.from("projects").select("*");
+	console.log(data);
+	res.json(data);
+});
+
+//SELECT USERDATA
+app.get("/userdata", async (req, res) => {
+	let { data, error } = await supabase.from("userdata").select("*");
+	res.json(data);
+	// console.log(userdata)
 });
 
 //INSERT TASKS
@@ -43,13 +52,6 @@ app.post("/userdata", async (req, res) => {
 	let { data, error } = await supabase.from("userdata").insert(req.body);
 	console.log(data);
 	// console.log(req.body)
-});
-
-//SELECT USERDATA
-app.get("/userdata", async (req, res) => {
-	let { data, error } = await supabase.from("userdata").select("*");
-	res.json(data);
-	// console.log(userdata)
 });
 
 //DELETE USERDATA
